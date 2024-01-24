@@ -1,7 +1,7 @@
 import React from 'react';
 import { cn } from '../../utils';
 
-function Button({ children, size = 'full', tw = '' }) {
+function Button({ children, size = 'full', tw = '', ...props }) {
     const styles = {
         sizes: {
             full: 'py-14 w-full',
@@ -17,6 +17,7 @@ function Button({ children, size = 'full', tw = '' }) {
                 styles.sizes[size],
                 tw
             ])}
+            {...props}
         >
             {children}
         </button>
