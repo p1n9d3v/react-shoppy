@@ -24,6 +24,7 @@ export function UserProvider({ children }) {
         logoutGoogle();
         setUser(null);
     };
+
     return (
         <UserContext.Provider
             value={{
