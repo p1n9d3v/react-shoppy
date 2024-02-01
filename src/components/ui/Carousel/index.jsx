@@ -51,7 +51,8 @@ function Carousel({ images = [] }) {
                                 <img
                                     key={index}
                                     src={image}
-                                    alt={`carousel image ${index}`}
+                                    alt={image}
+                                    aria-current={index === cur}
                                     className="object-cover w-full h-full"
                                 />
                             </div>

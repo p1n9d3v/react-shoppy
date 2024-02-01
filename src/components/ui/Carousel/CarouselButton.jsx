@@ -11,6 +11,7 @@ function CarouselButton({ children, position, ...rest }) {
                 'left-12': position === 'left',
                 'right-12': position === 'right'
             })}
+            aria-label={position === 'left' ? 'prev' : 'next'}
         >
             {position === 'left' && <FaChevronLeft className="text-white" />}
             {position === 'right' && <FaChevronRight className="text-white" />}
