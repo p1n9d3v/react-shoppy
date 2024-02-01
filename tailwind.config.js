@@ -5,7 +5,10 @@ module.exports = {
     theme: {
         colors: {
             primary: '#F05252',
-            white: '#fff'
+            white: '#fff',
+            gray: {
+                500: '#6B7280'
+            }
         },
         extend: {
             fontSize: px0_1000,
@@ -15,8 +18,15 @@ module.exports = {
             maxHeight: px0_1000,
             minWidth: px0_1000,
             minHeight: px0_1000,
-            spacing: px0_1000,
-            borderWidth: px0_1000
+            spacing: {
+                ...px0_1000,
+                '1/2': '50%',
+                '1/3': '33.333333%'
+            },
+            borderWidth: px0_1000,
+            translate: {
+                '1/2': '50%'
+            }
         }
     },
     plugins: []
