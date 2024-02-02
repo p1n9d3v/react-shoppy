@@ -36,8 +36,8 @@ function Carousel({ images = [] }) {
     };
 
     return (
-        <div>
-            <div className="relative w-screen overflow-hidden flex max-h-800">
+        <div className="relative">
+            <div className="w-screen overflow-hidden flex max-h-800">
                 {images.length > 0 &&
                     [images[images.length - 1], ...images, images[0]].map(
                         (image, index) => (
@@ -58,14 +58,14 @@ function Carousel({ images = [] }) {
                             </div>
                         )
                     )}
-                <div className="absolute top-1/2  -translate-y-1/2  h-45 w-full">
-                    <CarouselButton onClick={prev} position="left">
-                        Prev
-                    </CarouselButton>
-                    <CarouselButton onClick={next} position="right">
-                        Next
-                    </CarouselButton>
-                </div>
+            </div>
+            <div className="absolute top-1/2  -translate-y-1/2  h-45 w-full">
+                <CarouselButton onClick={prev} position="left">
+                    Prev
+                </CarouselButton>
+                <CarouselButton onClick={next} position="right">
+                    Next
+                </CarouselButton>
             </div>
         </div>
     );

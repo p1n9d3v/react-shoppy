@@ -26,6 +26,30 @@ module.exports = {
             borderWidth: px0_1000,
             translate: {
                 '1/2': '50%'
+            },
+            keyframes: {
+                show: {
+                    '0%': {
+                        opacity: 0,
+                        transform: 'translateY(300px)'
+                    },
+                    '35%': {
+                        opacity: 0.4,
+                        transform: 'translateY(200px)'
+                    },
+                    '70%': {
+                        opacity: 0.8,
+                        transform: 'translateY(100px)'
+                    },
+                    '100%': {
+                        opacity: 1,
+                        transform: 'translateY(0)'
+                    }
+                }
+            },
+            animation: {
+                show: 'show 0.5s linear',
+                disappear: 'disappear 0.3s ease-in-out'
             }
         }
     },
