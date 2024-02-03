@@ -1,5 +1,5 @@
 import { createContext, useContext, useLayoutEffect, useState } from 'react';
-import { loginGoogle, logoutGoogle, observeAuthState } from '../apis';
+import { firebaseAuth } from '../apis';
 
 const UserContext = createContext(null);
 
@@ -7,8 +7,7 @@ export function UserProvider({ children }) {
     const [user, setUser] = useState(null);
 
     useLayoutEffect(() => {
-        observeAuthState().then((user) => {
-            console.log(user);
+        firebaseAuth.observe().then((user) => {
             if (user) {
                 setUser(user);
             }
@@ -16,12 +15,13 @@ export function UserProvider({ children }) {
     }, []);
 
     const login = async () => {
-        const { user } = await loginGoogle();
+        const { user } = await firebaseAuth.loginGoogle();
+        console.log(user);
         setUser(user);
     };
 
     const logout = () => {
-        logoutGoogle();
+        firebaseAuth.logout();
         setUser(null);
     };
 

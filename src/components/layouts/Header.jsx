@@ -7,7 +7,6 @@ import { cn } from '../../utils';
 import Button from '../ui/Button';
 
 function Header() {
-    console.log('user', useUser());
     const { user, login, logout } = useUser();
     const navigate = useNavigate();
 
