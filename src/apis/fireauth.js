@@ -39,7 +39,7 @@ class FireAuth {
 
     observe() {
         return new Promise((resolve, reject) => {
-            onAuthStateChanged(this.#auth, (user) => {
+            onAuthStateChanged(this.#auth, async (user) => {
                 resolve(user);
             });
         });
