@@ -17,6 +17,10 @@
 .env.development.local
 .env.test.local
 .env.production.local
+.env.test
+.env.development
+firbase.json
+firebase.rules
 /dir
 
 npm-debug.log*
