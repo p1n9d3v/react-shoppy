@@ -1,4 +1,9 @@
+import AllProducts from 'pages/AllProducts';
+import Cart from 'pages/Cart';
 import Home from 'pages/Home';
+import NewProduct from 'pages/NewProduct';
+import ProductDetail from 'pages/ProductDetail';
+import ProtectedRoute from 'pages/ProtectedRoute';
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Layout from './components/layouts/Layout';
@@ -17,19 +22,27 @@ const router = createBrowserRouter([
             },
             {
                 path: '/products',
-                element: <div>Products</div>
+                element: <AllProducts />
             },
             {
                 path: '/products/new',
-                element: <div>Products New</div>
+                element: (
+                    <ProtectedRoute requireAdmin>
+                        <NewProduct />
+                    </ProtectedRoute>
+                )
             },
             {
                 path: '/products/:id',
-                element: <div>Products Detail</div>
+                element: <ProductDetail />
             },
             {
                 path: '/cart',
-                element: <div>My Cart</div>
+                element: (
+                    <ProtectedRoute>
+                        <Cart />
+                    </ProtectedRoute>
+                )
             }
         ]
     }

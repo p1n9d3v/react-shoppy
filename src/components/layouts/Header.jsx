@@ -2,6 +2,7 @@ import UserAvatar from 'components/ui/UserAvatar';
 import React from 'react';
 import { CgShoppingCart } from 'react-icons/cg';
 import { SiShopify } from 'react-icons/si';
+import { FaPencilAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../../context/user';
 import { cn } from '../../utils';
@@ -23,6 +24,12 @@ function Header() {
             <div className={cn('flex items-center gap-12')}>
                 <div>products</div>
                 <CgShoppingCart size="32" />
+                {user && user.isAdmin && (
+                    <FaPencilAlt
+                        className="w-28 h-28 cursor-pointer"
+                        onClick={() => navigate('/products/new')}
+                    />
+                )}
                 {user && <UserAvatar user={user} />}
                 <Button
                     size="lg"
