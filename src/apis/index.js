@@ -1,6 +1,7 @@
 import { connectAuthEmulator, getAuth } from 'firebase/auth';
 import { connectFirestoreEmulator, getFirestore } from 'firebase/firestore';
 import { connectDatabaseEmulator, getDatabase } from 'firebase/database';
+import { connectStorageEmulator, getStorage } from 'firebase/storage';
 import { app } from './config';
 import FireAuth from './fireauth';
 
@@ -16,5 +17,8 @@ connectAuthEmulator(auth, 'http://localhost:9099');
 
 export const realtimeDB = getDatabase(app);
 connectDatabaseEmulator(realtimeDB, 'localhost', 9000);
+
+export const storage = getStorage(app);
+connectStorageEmulator(storage, 'localhost', 9199);
 
 export const firebaseAuth = new FireAuth(auth);

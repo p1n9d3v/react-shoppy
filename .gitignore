@@ -21,6 +21,7 @@
 .env.development
 firbase.json
 firebase.rules
+storage.rules
 /dir
 
 npm-debug.log*
@@ -29,4 +30,7 @@ yarn-error.log*
 
 firebase-debug.log
 firestore-debug.log
+database-debug.log
+**/*.log
+*.log
 
