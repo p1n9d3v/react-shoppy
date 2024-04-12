@@ -4,7 +4,8 @@ import {
     collection,
     updateDoc,
     deleteField,
-    deleteDoc
+    deleteDoc,
+    addDoc
 } from 'firebase/firestore';
 import { doc } from 'firebase/firestore';
 
@@ -26,11 +27,12 @@ class Firestore {
             pathArr.shift();
         }
 
+        console.log(pathArr);
         if (pathArr.length % 2 === 0) {
             return doc(this.#db, ...pathArr);
         }
 
-        return doc(collection(this.#db, ...pathArr));
+        return collection(this.#db, ...pathArr);
     }
 
     async get() {
@@ -40,6 +42,10 @@ class Firestore {
 
     async set(data) {
         await setDoc(this.#ref, data);
+    }
+
+    async add(data) {
+        await addDoc(this.#ref, data);
     }
 
     async update(data) {

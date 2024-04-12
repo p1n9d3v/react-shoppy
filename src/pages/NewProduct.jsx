@@ -1,3 +1,4 @@
+import { addProduct } from 'apis';
 import { uploadToStorage } from 'apis/storage';
 import Button from 'components/ui/Button';
 import { useState } from 'react';
@@ -8,12 +9,28 @@ function NewProduct() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!file || !product.title) return;
+        if (
+            !file ||
+            !product.title ||
+            !product.description ||
+            !product.categories ||
+            !product.options
+        )
+            return;
 
-        const uploadResult = await uploadToStorage(
+        await uploadToStorage(
             file,
             `products/${product.title}.${file.type.split('/')[1]}`
         );
+
+        const categories = product.categories.split(',');
+        const options = product.options.split(',');
+        await addProduct({
+            title: product.title,
+            description: product.description,
+            categories,
+            options
+        });
     };
 
     const handleChange = (e) => {
@@ -49,8 +66,8 @@ function NewProduct() {
 
                 <input
                     type="text"
-                    name="category"
-                    value={product.category ?? ''}
+                    name="categories"
+                    value={product.categories ?? ''}
                     placeholder="카테고리"
                     required
                     onChange={handleChange}

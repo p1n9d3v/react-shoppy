@@ -4,6 +4,7 @@ import { connectDatabaseEmulator, getDatabase } from 'firebase/database';
 import { connectStorageEmulator, getStorage } from 'firebase/storage';
 import { app } from './config';
 import FireAuth from './fireauth';
+import Firestore from './firestore';
 
 const HOST = 'localhost';
 const FIRESTORE_PORT = 8080;
@@ -22,3 +23,14 @@ export const storage = getStorage(app);
 connectStorageEmulator(storage, 'localhost', 9199);
 
 export const firebaseAuth = new FireAuth(auth);
+export const firestoreProducts = new Firestore(firestore, 'products');
+
+export const addProduct = async (data) => {
+    const { title, description, categories, options } = data;
+    return await firestoreProducts.add({
+        title,
+        description,
+        categories,
+        options
+    });
+};
