@@ -45,7 +45,7 @@ class Firestore {
     }
 
     async add(data) {
-        await addDoc(this.#ref, data);
+        return await addDoc(this.#ref, data);
     }
 
     async update(data) {
