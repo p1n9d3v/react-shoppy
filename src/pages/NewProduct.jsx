@@ -8,10 +8,12 @@ import { IoMdCloseCircleOutline } from 'react-icons/io';
 function NewProduct() {
     const [product, setProduct] = useState({});
     const [file, setFile] = useState();
+    const [isUploading, setIsUploading] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (
+            isUploading ||
             !file ||
             !product.title ||
             !product.description ||
@@ -34,12 +36,14 @@ function NewProduct() {
                 file,
                 `products/${result.id}.${file.type.split('/')[1]}`
             );
+            alert('상품이 등록되었습니다.');
         } catch (error) {
             console.log(error);
             alert('상품 등록에 실패했습니다.');
         } finally {
             setFile(null);
             setProduct({});
+            setIsUploading(false);
         }
     };
 
@@ -60,10 +64,10 @@ function NewProduct() {
             <form onSubmit={handleSubmit} className="flex flex-col gap-12">
                 <div>
                     {file ? (
-                        <div className="relative">
+                        <div className="relative w-fit mx-auto max-w-800">
                             <img
                                 src={file && URL.createObjectURL(file)}
-                                className="w-full object-cover max-h-1200"
+                                className="w-full"
                                 alt="preview"
                             />
 
@@ -157,7 +161,9 @@ function NewProduct() {
                         className="w-full  border-2 border-gray-300 p-12 rounded-[8px]"
                     />
                 </div>
-                <Button size="full">등록</Button>
+                <Button size="full">
+                    {isUploading ? '업로딩 중...' : '등록'}
+                </Button>
             </form>
         </section>
     );
