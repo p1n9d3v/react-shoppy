@@ -1,4 +1,4 @@
-import { addProduct } from 'apis';
+import { addProduct } from 'apis/products';
 import { uploadToStorage } from 'apis/storage';
 import Button from 'components/ui/Button';
 import { useState } from 'react';
@@ -36,6 +36,7 @@ function NewProduct() {
                 file,
                 `products/${result.id}.${file.type.split('/')[1]}`
             );
+
             alert('상품이 등록되었습니다.');
         } catch (error) {
             console.log(error);
@@ -88,7 +89,7 @@ function NewProduct() {
                             <input
                                 id="file"
                                 type="file"
-                                accept="image/*"
+                                accept="webp"
                                 name="file"
                                 required
                                 onChange={handleChange}

@@ -5,7 +5,8 @@ import {
     updateDoc,
     deleteField,
     deleteDoc,
-    addDoc
+    addDoc,
+    getDocs
 } from 'firebase/firestore';
 import { doc } from 'firebase/firestore';
 
@@ -38,6 +39,14 @@ class Firestore {
     async get() {
         const snap = await getDoc(this.#ref);
         return snap.data();
+    }
+
+    async getAll() {
+        const snap = await getDocs(this.#ref);
+        return snap.docs.map((doc) => ({
+            id: doc.id,
+            data: doc.data()
+        }));
     }
 
     async set(data) {

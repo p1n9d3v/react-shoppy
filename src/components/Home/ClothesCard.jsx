@@ -14,7 +14,7 @@ function ClothesCard({ clothes }) {
 
             <div className="px-8 py-12 flex flex-col gap-12 flex-1">
                 <div className="text-24 font-semibold">{title}</div>
-                <div className="line-clamp-3">{description}</div>
+                <div className="line-clamp-3 h-full">{description}</div>
                 <div className="self-end text-32 font-bold">
                     ${parseInt(price).toLocaleString()}
                 </div>
