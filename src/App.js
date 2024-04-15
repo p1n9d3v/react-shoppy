@@ -4,6 +4,7 @@ import NewProduct from 'pages/NewProduct';
 import ProductDetail from 'pages/ProductDetail';
 import ProtectedRoute from 'pages/ProtectedRoute';
 import React from 'react';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Layout from './components/layouts/Layout';
 import { UserProvider } from './context/user';
@@ -43,11 +44,14 @@ const router = createBrowserRouter([
     }
 ]);
 
+const queryClient = new QueryClient();
 function App() {
     return (
-        <UserProvider>
-            <RouterProvider router={router} />
-        </UserProvider>
+        <QueryClientProvider client={queryClient}>
+            <UserProvider>
+                <RouterProvider router={router} />
+            </UserProvider>
+        </QueryClientProvider>
     );
 }
 
