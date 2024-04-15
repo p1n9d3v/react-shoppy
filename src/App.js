@@ -1,4 +1,3 @@
-import AllProducts from 'pages/AllProducts';
 import Cart from 'pages/Cart';
 import Home from 'pages/Home';
 import NewProduct from 'pages/NewProduct';
@@ -19,10 +18,6 @@ const router = createBrowserRouter([
             {
                 index: true,
                 element: <Home />
-            },
-            {
-                path: '/products',
-                element: <AllProducts />
             },
             {
                 path: '/products/new',
