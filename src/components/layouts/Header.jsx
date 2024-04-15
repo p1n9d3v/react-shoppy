@@ -22,7 +22,6 @@ function Header() {
                 Shoppy
             </div>
             <div className={cn('flex items-center gap-12')}>
-                <div>products</div>
                 <CgShoppingCart size="32" />
                 {user && user.isAdmin && (
                     <FaPencilAlt
