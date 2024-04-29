@@ -3,6 +3,7 @@ import ClothesCard from 'components/Home/ClothesCard';
 import Carousel from 'components/ui/Carousel';
 import React from 'react';
 import { useQuery } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 
 const images = [
     'https://iso.500px.com/wp-content/uploads/2020/02/Christophe-Josse-Finale-By-Milton-Tan.jpeg',
@@ -16,6 +17,8 @@ function Home() {
         error,
         data: products
     } = useQuery(['products'], getProducts);
+
+    const navigate = useNavigate();
 
     return (
         <div>
@@ -38,6 +41,11 @@ function Home() {
                                         description: product.data.description,
                                         price: product.data.price
                                     }}
+                                    onClick={() =>
+                                        navigate(`/products/${product.id}`, {
+                                            state: { product }
+                                        })
+                                    }
                                 />
                             ))}
                         </div>

@@ -1,4 +1,5 @@
-import { firestoreProducts } from 'apis';
+import { firestoreProducts, makeFirestoreProduct } from 'apis';
+import Firestore from './firestore';
 import { getUrlFromStorage } from './storage';
 
 export const addProduct = async (data) => {
@@ -26,4 +27,15 @@ export const getProducts = async () => {
             };
         })
     );
+};
+
+export const getProduct = async (id) => {
+    const firestoreProduct = makeFirestoreProduct(id);
+    const product = await firestoreProduct.get();
+    const image = await getUrlFromStorage(`products/${id}.webp`);
+
+    return {
+        ...product,
+        image
+    };
 };

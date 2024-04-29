@@ -24,3 +24,5 @@ connectStorageEmulator(storage, 'localhost', 9199);
 
 export const firebaseAuth = new FireAuth(auth);
 export const firestoreProducts = new Firestore(firestore, 'products');
+export const makeFirestoreProduct = (id) =>
+    new Firestore(firestore, `products/${id}`);
