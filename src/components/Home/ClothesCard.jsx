@@ -4,7 +4,7 @@ function ClothesCard({ clothes }) {
     const { image, title, price, description } = clothes;
     return (
         <div
-            className="w-full h-full overflow-hidden flex flex-col rounded-md shadow-lg animate-show hover:scale-105 transition ease-in-out"
+            className="w-full h-full overflow-hidden flex flex-col rounded-md shadow-lg animate-show hover:scale-105 transition ease-in-out cursor-pointer"
             style={{
                 animationTimeline: 'view()',
                 animationRange: 'entry 5% cover 20%'
