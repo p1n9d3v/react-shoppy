@@ -3,5 +3,8 @@ service cloud.firestore {
 		match /products/{document=**} {
 			allow read,write: if true;
 		}
+		match /carts/{document=**} {
+			allow read,write: if true;
+		}
 	}
 }

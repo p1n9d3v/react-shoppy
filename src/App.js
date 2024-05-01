@@ -1,10 +1,10 @@
-import ErrorBoundary from 'components/ErrorBoundary';
 import Cart from 'pages/Cart';
 import Home from 'pages/Home';
 import NewProduct from 'pages/NewProduct';
 import ProductDetail from 'pages/ProductDetail';
 import ProtectedRoute from 'pages/ProtectedRoute';
 import React, { Suspense } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Layout from './components/layouts/Layout';
@@ -33,7 +33,7 @@ const router = createBrowserRouter([
                 path: '/products/:id',
 
                 element: (
-                    <ErrorBoundary>
+                    <ErrorBoundary fallback={<div>Something is wrong</div>}>
                         <Suspense fallback={<p>Loading...</p>}>
                             <ProductDetail />
                         </Suspense>
@@ -44,7 +44,9 @@ const router = createBrowserRouter([
                 path: '/cart',
                 element: (
                     <ProtectedRoute>
-                        <Cart />
+                        <ErrorBoundary fallback={<div>Something is wrong</div>}>
+                            <Cart />
+                        </ErrorBoundary>
                     </ProtectedRoute>
                 )
             }

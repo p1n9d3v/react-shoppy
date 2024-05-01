@@ -1,12 +1,16 @@
+import { addProductToCart } from 'apis/cart';
 import { getProduct } from 'apis/products';
 import Button from 'components/ui/Button';
-import React, { useState } from 'react';
+import React from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
+import { useUser } from 'context/user';
+import { IoIosCheckbox } from 'react-icons/io';
 
 function ProductDetail() {
     const { id } = useParams();
-
+    const { user } = useUser();
+    const [successAddToCart, setSuccessAddToCart] = React.useState(false);
     const {
         isLoading,
         error,
@@ -15,10 +19,25 @@ function ProductDetail() {
         suspense: true
     });
 
-    const handleAddToCart = (e) => {
+    const handleAddToCart = async (e) => {
         e.preventDefault();
-        const options = e.target.options.value;
-        console.log(options);
+        if (!user) {
+            alert('로그인이 필요합니다.');
+            return;
+        }
+
+        const option = e.target.options.value;
+        const productData = {
+            ...product,
+            options: option
+        };
+
+        try {
+            await addProductToCart(user.uid, productData);
+            setSuccessAddToCart(true);
+        } catch (e) {
+            setSuccessAddToCart(false);
+        }
     };
 
     return (
