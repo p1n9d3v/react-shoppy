@@ -41,7 +41,7 @@ function ProductDetail() {
     };
 
     return (
-        <div className="flex gap-20 px-20">
+        <div className="flex gap-20 px-20 max-lg:flex-col">
             <div className="flex-1">
                 <img src={product.image} alt={'product image'} />
             </div>
@@ -73,6 +73,12 @@ function ProductDetail() {
                             ))}
                         </select>
                     </div>
+                    {successAddToCart && (
+                        <div className="flex items-center gap-4">
+                            <IoIosCheckbox size={24} className="text-primary" />
+                            장바구니에 추가되었습니다.
+                        </div>
+                    )}
                     <Button type="submit" tw="mt-20">
                         장바구니 담기
                     </Button>
