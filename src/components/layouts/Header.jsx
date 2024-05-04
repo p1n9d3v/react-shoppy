@@ -22,7 +22,11 @@ function Header() {
     );
 
     return (
-        <div className={cn('flex justify-between items-center py-12 px-24')}>
+        <div
+            className={cn(
+                'flex justify-between items-center py-12 px-24 border-b border-b-gray-100'
+            )}
+        >
             <div
                 className={cn('flex items-center gap-8 text-28 cursor-pointer')}
                 onClick={() => navigate('/')}
@@ -31,7 +35,10 @@ function Header() {
                 Shoppy
             </div>
             <div className={cn('flex items-center gap-12')}>
-                <div className="relative cursor-pointer">
+                <div
+                    className="relative cursor-pointer"
+                    onClick={() => navigate('/cart')}
+                >
                     <CgShoppingCart size="32" />
 
                     {cart && cart.data.length > 0 && (

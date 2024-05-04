@@ -2,7 +2,7 @@ import { addProductToCart } from 'apis/cart';
 import { getProduct } from 'apis/products';
 import Button from 'components/ui/Button';
 import React from 'react';
-import { useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import { useParams } from 'react-router-dom';
 import { useUser } from 'context/user';
 import { IoIosCheckbox } from 'react-icons/io';
@@ -11,13 +11,10 @@ function ProductDetail() {
     const { id } = useParams();
     const { user } = useUser();
     const [successAddToCart, setSuccessAddToCart] = React.useState(false);
-    const {
-        isLoading,
-        error,
-        data: product
-    } = useQuery(['product', id], () => getProduct(id), {
+    const { data: product } = useQuery(['product', id], () => getProduct(id), {
         suspense: true
     });
+    const queryClient = useQueryClient();
 
     const handleAddToCart = async (e) => {
         e.preventDefault();
@@ -37,6 +34,8 @@ function ProductDetail() {
             setSuccessAddToCart(true);
         } catch (e) {
             setSuccessAddToCart(false);
+        } finally {
+            queryClient.invalidateQueries(['carts', user.uid]);
         }
     };
 

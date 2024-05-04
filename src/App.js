@@ -45,7 +45,9 @@ const router = createBrowserRouter([
                 element: (
                     <ProtectedRoute>
                         <ErrorBoundary fallback={<div>Something is wrong</div>}>
-                            <Cart />
+                            <Suspense fallback={<div>Loading...</div>}>
+                                <Cart />
+                            </Suspense>
                         </ErrorBoundary>
                     </ProtectedRoute>
                 )

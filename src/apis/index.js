@@ -26,5 +26,6 @@ export const firebaseAuth = new FireAuth(auth);
 export const firestoreProducts = new Firestore(firestore, 'products');
 export const makeFirestoreProduct = (id) =>
     new Firestore(firestore, `products/${id}`);
-export const makeFirestoreCart = (uid) =>
-    new Firestore(firestore, `carts/${uid}`);
+
+export const makeFirestoreCart = (id) =>
+    new Firestore(firestore, `carts/${id}`);

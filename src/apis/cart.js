@@ -4,9 +4,42 @@ export const addProductToCart = async (uid, product) => {
     const cart = makeFirestoreCart(uid);
     const prevCart = await cart.get();
 
-    return await cart.set({
-        data: prevCart ? [...prevCart.data, product] : [product]
-    });
+    const newProduct = {
+        ...product,
+        count: 1
+    };
+    if (!prevCart) {
+        return await cart.set({
+            data: [newProduct]
+        });
+    } else {
+        const isProductInCart = prevCart.data.some(
+            (item) =>
+                item.title === product.title && item.options === product.options
+        );
+
+        if (isProductInCart) {
+            const newCart = prevCart.data.map((item) => {
+                if (
+                    item.title === product.title &&
+                    item.options === product.options
+                ) {
+                    return {
+                        ...item,
+                        count: item.count + 1
+                    };
+                }
+                return item;
+            });
+            return await cart.set({
+                data: newCart
+            });
+        }
+
+        return await cart.set({
+            data: [...prevCart.data, newProduct]
+        });
+    }
 };
 
 export const getCartProducts = async (uid) => {
