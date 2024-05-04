@@ -1,10 +1,18 @@
-import { getCartProducts } from 'apis/cart';
+import {
+    getCartProducts,
+    removeProductFromCart,
+    updateMinusProductCount,
+    updatePlusProductCount
+} from 'apis/cart';
 import { useUser } from 'context/user';
 import React from 'react';
-import { useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import { CiSquareMinus } from 'react-icons/ci';
 import { CiSquarePlus } from 'react-icons/ci';
 import { CiTrash } from 'react-icons/ci';
+import { FaPlus } from 'react-icons/fa';
+import { FaEquals } from 'react-icons/fa';
+import Price from 'components/Cart/Price';
 
 function Cart() {
     const { user } = useUser();
@@ -16,6 +24,27 @@ function Cart() {
             suspense: true
         }
     );
+    const queryClient = useQueryClient();
+    const shippingFee = 3000;
+    const totalPrice = cart.data.reduce(
+        (acc, cur) => acc + cur.price * cur.count,
+        0
+    );
+
+    const handlePlusCount = async (product) => {
+        await updatePlusProductCount(user.uid, product);
+        queryClient.invalidateQueries(['cart', user.uid]);
+    };
+
+    const handleMinusCount = async (product) => {
+        await updateMinusProductCount(user.uid, product);
+        queryClient.invalidateQueries(['cart', user.uid]);
+    };
+
+    const handleRemoveProduct = async (product) => {
+        await removeProductFromCart(user.uid, product);
+        queryClient.invalidateQueries(['cart', user.uid]);
+    };
 
     return (
         <div className="px-20">
@@ -43,18 +72,41 @@ function Cart() {
                                 </div>
                                 <div className="flex gap-8">
                                     <div className="flex items-center gap-4">
-                                        <CiSquareMinus size={24} />
-                                        0
-                                        <CiSquarePlus size={24} />
+                                        <CiSquareMinus
+                                            size={24}
+                                            className="cursor-pointer"
+                                            onClick={() =>
+                                                handleMinusCount(product)
+                                            }
+                                        />
+                                        {product.count}
+                                        <CiSquarePlus
+                                            size={24}
+                                            className="cursor-pointer"
+                                            onClick={() =>
+                                                handlePlusCount(product)
+                                            }
+                                        />
                                     </div>
                                     <CiTrash
                                         size={24}
-                                        className="text-primary"
+                                        className="text-primary cursor-pointer"
+                                        onClick={() =>
+                                            handleRemoveProduct(product)
+                                        }
                                     />
                                 </div>
                             </div>
                         </div>
                     ))}
+            </div>
+
+            <div className="flex justify-evenly items-center my-20">
+                <Price title="총 상품 금액" price={totalPrice} />
+                <FaPlus size={32} />
+                <Price title="총 상품 금액" price={shippingFee} />
+                <FaEquals size={32} />
+                <Price title="총 상품 금액" price={shippingFee + totalPrice} />
             </div>
         </div>
     );
