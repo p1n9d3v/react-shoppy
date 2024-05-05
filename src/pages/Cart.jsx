@@ -4,7 +4,7 @@ import {
     updatePlusProductCount
 } from 'apis/cart';
 import { useUser } from 'context/user';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useQueryClient } from 'react-query';
 import { CiSquareMinus } from 'react-icons/ci';
 import { CiSquarePlus } from 'react-icons/ci';
@@ -20,11 +20,13 @@ function Cart() {
     const { cartQuery } = useCart({ query: true, uid: user?.uid });
     const queryClient = useQueryClient();
     const SHIPPING_FEE = 3000;
-    const totalPrice = cartQuery.data.data.reduce(
-        (acc, cur) => acc + cur.price * cur.count,
-        0
-    );
-
+    const totalPrice = React.useMemo(() => {
+        if (!cartQuery.data) return 0;
+        return cartQuery.data.data.reduce(
+            (acc, cur) => acc + cur.price * cur.count,
+            0
+        );
+    }, [cartQuery.data]);
     const handlePlusCount = async (product) => {
         await updatePlusProductCount(user.uid, product);
         queryClient.invalidateQueries(['cart', user.uid]);
@@ -47,7 +49,12 @@ function Cart() {
             </div>
 
             <div className="flex flex-col gap-8 py-12 border-y border-y-gray-500">
-                {cartQuery.data.data.map((product) => (
+                {!cartQuery.data && (
+                    <p className="text-center text-4xl font-bold">
+                        상품이 없습니다
+                    </p>
+                )}
+                {cartQuery.data?.data.map((product) => (
                     <div className="flex">
                         <img
                             src={product.image}

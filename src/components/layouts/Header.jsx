@@ -24,7 +24,9 @@ function Header() {
                 className={cn('flex items-center gap-8 text-28 cursor-pointer')}
                 onClick={() => navigate('/')}
             >
-                <SiShopify size="36" className={cn('text-primary')} />
+                {login && (
+                    <SiShopify size="36" className={cn('text-primary')} />
+                )}
                 Shoppy
             </div>
             <div className={cn('flex items-center gap-12')}>

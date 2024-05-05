@@ -11,21 +11,20 @@ const FIRESTORE_PORT = 8080;
 const AUTH_PORT = 9099;
 
 const firestore = getFirestore(app);
-connectFirestoreEmulator(firestore, 'localhost', 8080);
+// connectFirestoreEmulator(firestore, 'localhost', 8080);
 
 const auth = getAuth(app);
-connectAuthEmulator(auth, 'http://localhost:9099');
+// connectAuthEmulator(auth, 'http://localhost:9099');
 
 export const realtimeDB = getDatabase(app);
-connectDatabaseEmulator(realtimeDB, 'localhost', 9000);
+// connectDatabaseEmulator(realtimeDB, 'localhost', 9000);
 
 export const storage = getStorage(app);
-connectStorageEmulator(storage, 'localhost', 9199);
+// connectStorageEmulator(storage, 'localhost', 9199);
 
 export const firebaseAuth = new FireAuth(auth);
 export const firestoreProducts = new Firestore(firestore, 'products');
 export const makeFirestoreProduct = (id) =>
     new Firestore(firestore, `products/${id}`);
-
-export const makeFirestoreCart = (id) =>
-    new Firestore(firestore, `carts/${id}`);
+export const makeFirestoreCart = (uid) =>
+    new Firestore(firestore, `carts/${uid}`);

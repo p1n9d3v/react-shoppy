@@ -10,7 +10,7 @@ function useCart({ query = true, uid }) {
     });
 
     const cartLength = useMemo(() => {
-        if (!uid) return 0;
+        if (!uid || !cartQuery.data) return 0;
         return cartQuery.data.data.length;
     }, [cartQuery.data, uid]);
 

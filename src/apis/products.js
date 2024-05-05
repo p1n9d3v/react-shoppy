@@ -1,5 +1,4 @@
 import { firestoreProducts, makeFirestoreProduct } from 'apis';
-import Firestore from './firestore';
 import { getUrlFromStorage, uploadToStorage } from './storage';
 
 export const addProduct = async (data) => {
