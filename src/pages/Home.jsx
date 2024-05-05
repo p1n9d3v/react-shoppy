@@ -1,6 +1,7 @@
 import { getProducts } from 'apis/products';
 import ClothesCard from 'components/Home/ClothesCard';
 import Carousel from 'components/ui/Carousel';
+import useProduct from 'hooks/useProduct';
 import React from 'react';
 import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
@@ -12,27 +13,21 @@ const images = [
 ];
 
 function Home() {
-    const {
-        isLoading,
-        error,
-        data: products
-    } = useQuery(['products'], getProducts);
+    const { productQuery } = useProduct({ query: true });
 
     const navigate = useNavigate();
 
     return (
         <div>
             <Carousel images={images} />
-            {isLoading && <div>Loading...</div>}
-            {error && <div>Error: {error.message}</div>}
-            {products && (
+            {productQuery.data && (
                 <div className="px-20">
                     <section>
                         <div className="py-20 text-center text-40 font-bold uppercase">
                             <h1>Products</h1>
                         </div>
                         <div className="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-24">
-                            {products.map((product, idx) => (
+                            {productQuery.data.map((product, idx) => (
                                 <ClothesCard
                                     key={product.id}
                                     clothes={{

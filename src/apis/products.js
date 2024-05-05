@@ -1,16 +1,20 @@
 import { firestoreProducts, makeFirestoreProduct } from 'apis';
 import Firestore from './firestore';
-import { getUrlFromStorage } from './storage';
+import { getUrlFromStorage, uploadToStorage } from './storage';
 
 export const addProduct = async (data) => {
-    const { title, description, categories, options, price } = data;
-    return await firestoreProducts.add({
+    const { title, description, categories, options, price, file } = data;
+    const addProductMetaResult = await firestoreProducts.add({
         title,
         description,
         categories,
         options,
         price
     });
+    await uploadToStorage(
+        file,
+        `products/${addProductMetaResult.id}.${file.type.split('/')[1]}`
+    );
 };
 
 export const getProducts = async () => {

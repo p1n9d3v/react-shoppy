@@ -1,6 +1,5 @@
-import { addProduct } from 'apis/products';
-import { uploadToStorage } from 'apis/storage';
 import Button from 'components/ui/Button';
+import useProduct from 'hooks/useProduct';
 import { useState } from 'react';
 import { CiCirclePlus } from 'react-icons/ci';
 import { IoMdCloseCircleOutline } from 'react-icons/io';
@@ -9,6 +8,7 @@ function NewProduct() {
     const [product, setProduct] = useState({});
     const [file, setFile] = useState();
     const [isUploading, setIsUploading] = useState(false);
+    const { addProductMutation } = useProduct({ query: false });
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -25,18 +25,14 @@ function NewProduct() {
         const categories = product.categories.split(',');
         const options = product.options.split(',');
         try {
-            const result = await addProduct({
+            addProductMutation.mutate({
                 title: product.title,
                 description: product.description,
                 categories,
                 options,
-                price: Number(product.price)
+                price: Number(product.price),
+                file
             });
-            await uploadToStorage(
-                file,
-                `products/${result.id}.${file.type.split('/')[1]}`
-            );
-
             alert('상품이 등록되었습니다.');
         } catch (error) {
             console.log(error);

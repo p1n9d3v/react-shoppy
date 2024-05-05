@@ -19,7 +19,11 @@ const router = createBrowserRouter([
         children: [
             {
                 index: true,
-                element: <Home />
+                element: (
+                    <Suspense fallback={<p>Loading...</p>}>
+                        <Home />
+                    </Suspense>
+                )
             },
             {
                 path: '/products/new',
