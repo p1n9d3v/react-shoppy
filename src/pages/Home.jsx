@@ -24,7 +24,7 @@ function Home() {
                         <div className="py-20 text-center text-40 font-bold uppercase">
                             <h1>Products</h1>
                         </div>
-                        <div className="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-24">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 gap-24">
                             {productQuery.data.map((product, idx) => (
                                 <ClothesCard
                                     key={product.id}
