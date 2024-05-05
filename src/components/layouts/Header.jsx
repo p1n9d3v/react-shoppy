@@ -7,19 +7,12 @@ import { useNavigate } from 'react-router-dom';
 import { useUser } from '../../context/user';
 import { cn } from '../../utils';
 import Button from '../ui/Button';
-import { useQuery } from 'react-query';
-import { getCartProducts } from 'apis/cart';
+import useCart from 'hooks/useCart';
 
 function Header() {
     const { user, login, logout } = useUser();
     const navigate = useNavigate();
-    const { data: cart } = useQuery(
-        ['carts', user?.uid],
-        () => getCartProducts(user.uid),
-        {
-            enable: !!user
-        }
-    );
+    const { cartLength } = useCart({ query: true, uid: user?.uid });
 
     return (
         <div
@@ -41,9 +34,9 @@ function Header() {
                 >
                     <CgShoppingCart size="32" />
 
-                    {cart && cart.data.length > 0 && (
+                    {cartLength > 0 && (
                         <div className="w-24 h-24 rounded-full bg-primary flex items-center justify-center text-white absolute -top-4 -right-12">
-                            {cart.data.length}
+                            {cartLength}
                         </div>
                     )}
                 </div>

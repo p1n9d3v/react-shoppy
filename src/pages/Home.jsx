@@ -1,9 +1,7 @@
-import { getProducts } from 'apis/products';
 import ClothesCard from 'components/Home/ClothesCard';
 import Carousel from 'components/ui/Carousel';
 import useProduct from 'hooks/useProduct';
 import React from 'react';
-import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 
 const images = [
