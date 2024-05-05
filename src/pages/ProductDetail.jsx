@@ -16,7 +16,7 @@ function ProductDetail() {
     });
     const { addProductToCartMutation } = useCart({
         query: false,
-        uid: user.uid
+        uid: user?.uid
     });
 
     const handleAddToCart = async (e) => {

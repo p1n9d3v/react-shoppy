@@ -9,10 +9,10 @@ function useCart({ query = true, uid }) {
         suspense: true
     });
 
-    const cartLength = useMemo(
-        () => cartQuery.data.data.length,
-        [cartQuery.data]
-    );
+    const cartLength = useMemo(() => {
+        if (!uid) return 0;
+        return cartQuery.data.data.length;
+    }, [cartQuery.data, uid]);
 
     const addProductToCartMutation = useMutation({
         mutationFn: addProductToCart,
